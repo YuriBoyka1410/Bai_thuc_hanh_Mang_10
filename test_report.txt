@@ -1,116 +1,151 @@
 
-========================================
-       DATAMART - TEST REPORT
-========================================
+=============================================
+          DATAMART - TEST REPORT
+=============================================
 
-MỤC TIÊU KIỂM THỬ:
+I. MỤC TIÊU KIỂM THỬ
+
 - Kiểm tra tính chính xác của doanh thu.
+- Kiểm tra trạng thái đơn hàng Delivered.
 - Kiểm tra khả năng xử lý dữ liệu rỗng.
-- Kiểm tra dữ liệu bất thường.
-- Kiểm tra tính toàn vẹn của dữ liệu gốc.
+- Kiểm tra dữ liệu đầu vào bất thường.
+- Kiểm tra tính bất biến của dữ liệu gốc.
+- So sánh hai phương pháp xử lý dữ liệu.
 
-----------------------------------------
-KIỂM THỬ 1: DỮ LIỆU ĐƠN HÀNG CHUẨN
-----------------------------------------
+---------------------------------------------
+II. CHI TIẾT CÁC TRƯỜNG HỢP KIỂM THỬ
+---------------------------------------------
+
+TEST 1: DỮ LIỆU ĐƠN HÀNG TIÊU CHUẨN
 
 Dữ liệu đầu vào:
 - Tổng số đơn hàng: 20.
-- Trạng thái bao gồm: Delivered, Pending, Cancelled.
+- Có các trạng thái Delivered, Pending, Cancelled.
+- Số đơn Delivered hợp lệ: 10.
 
 Kết quả mong đợi:
-- Chỉ tính các đơn hàng Delivered hợp lệ.
-- Tổng số đơn hàng Delivered: 10.
-- Tổng doanh thu: 6380.
+6380
 
-Kết quả thực tế:
-- Tổng số đơn hàng: 20.
-- Tổng doanh thu: 6380.
+Kết quả thực tế sau khi chạy:
+6380
 
-Trạng thái: PASSED
+Trạng thái dự kiến: PASSED
 
-----------------------------------------
-KIỂM THỬ 2: MẢNG RỖNG
-----------------------------------------
+---------------------------------------------
+
+TEST 2: MẢNG RỖNG
 
 Dữ liệu đầu vào:
 []
 
-Kết quả mong đợi: 0
-Kết quả thực tế: 0
+Kết quả mong đợi:
+0
 
-Trạng thái: PASSED
+Kết quả thực tế sau khi chạy:
+0
 
-----------------------------------------
-KIỂM THỬ 3: KHÔNG CÓ ĐƠN HÀNG DELIVERED
-----------------------------------------
+Trạng thái dự kiến: PASSED
+
+---------------------------------------------
+
+TEST 3: KHÔNG CÓ ĐƠN HÀNG DELIVERED
 
 Dữ liệu đầu vào:
 - Đơn hàng Pending.
 - Đơn hàng Cancelled.
 
-Kết quả mong đợi: 0
-Kết quả thực tế: 0
+Kết quả mong đợi:
+0
 
-Trạng thái: PASSED
+Kết quả thực tế sau khi chạy:
+0
 
-----------------------------------------
-KIỂM THỬ 4: DỮ LIỆU BẤT THƯỜNG
-----------------------------------------
+Trạng thái dự kiến: PASSED
+
+---------------------------------------------
+
+TEST 4: DỮ LIỆU BẤT THƯỜNG
 
 Dữ liệu đầu vào:
 - Price = null.
 - Tax = undefined.
 - Price là chuỗi ký tự.
 - Có phần tử null trong mảng.
-- Có đơn hàng hợp lệ.
+- Có đơn hàng Delivered hợp lệ.
+- Có đơn hàng Pending hợp lệ.
+
+Kết quả xử lý:
+- Đơn hàng 23: 100 + 10 = 110.
+- Đơn hàng 28: 400 + 40 = 440.
+- Các đơn hàng còn lại bị loại bỏ.
 
 Kết quả mong đợi:
-- Bỏ qua các đơn hàng có dữ liệu không hợp lệ.
-- Chỉ tính các đơn hàng Delivered hợp lệ.
+550
 
-Kết quả thực tế:
-- Đơn hàng hợp lệ thứ nhất: 100 + 10 = 110.
-- Đơn hàng hợp lệ thứ hai: 400 + 40 = 440.
-- Tổng doanh thu: 550.
+Kết quả thực tế sau khi chạy:
+550
 
-Trạng thái: PASSED
+Trạng thái dự kiến: PASSED
 
-----------------------------------------
-KIỂM THỬ 5: SAI KIỂU DỮ LIỆU ĐẦU VÀO
-----------------------------------------
+---------------------------------------------
+
+TEST 5: ĐẦU VÀO KHÔNG PHẢI MẢNG
 
 Dữ liệu đầu vào:
 null
 
-Kết quả mong đợi: 0
-Kết quả thực tế: 0
+Kết quả mong đợi:
+0
 
-Trạng thái: PASSED
+Kết quả thực tế sau khi chạy:
+0
 
-----------------------------------------
-KIỂM THỬ 6: KIỂM TRA TÍNH TOÀN VẸN
-----------------------------------------
+Trạng thái dự kiến: PASSED
+
+---------------------------------------------
+
+TEST 6: KIỂM TRA TÍNH BẤT BIẾN
 
 Phương pháp:
-- Lưu lại dữ liệu gốc trước khi xử lý.
-- Gọi hàm calculateTotalRevenue().
+- Lưu dữ liệu gốc trước khi xử lý.
+- Thực hiện tính toán doanh thu.
 - So sánh dữ liệu trước và sau khi xử lý.
 
 Kết quả mong đợi:
-Dữ liệu gốc không bị thay đổi.
+true
 
-Kết quả thực tế:
-Dữ liệu gốc không bị thay đổi.
+Kết quả thực tế sau khi chạy:
+true
 
-Trạng thái: PASSED
+Trạng thái dự kiến: PASSED
 
-========================================
-TỔNG KẾT
-========================================
+---------------------------------------------
 
-Tổng số kịch bản kiểm thử: 6
-Số kịch bản thành công: 6
-Số kịch bản thất bại: 0
+TEST 7: SO SÁNH HAI PHƯƠNG PHÁP
 
-KẾT QUẢ CUỐI CÙNG: ALL TESTS PASSED
-========================================
+Phương pháp 1:
+filter() -> map() -> reduce()
+
+Phương pháp 2:
+reduce()
+
+Kết quả mong đợi:
+Hai phương pháp trả về cùng doanh thu.
+
+Kết quả thực tế sau khi chạy:
+6380 = 6380
+
+Trạng thái dự kiến: PASSED
+
+=============================================
+III. TỔNG KẾT
+=============================================
+
+Tổng số trường hợp kiểm thử: 7
+Kết quả mong đợi: Cả 7 trường hợp đều thành công.
+
+Kết quả cuối cùng:
+Chỉ xác nhận ALL TESTS PASSED khi Terminal
+hiển thị PASSED ở cả 7 trường hợp.
+
+=============================================
