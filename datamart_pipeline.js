@@ -1,24 +1,26 @@
 /**
- * ==============================================
+ * ==================================================
  * DỰ ÁN: DATAMART - HỆ THỐNG XỬ LÝ DỮ LIỆU
- * ==============================================
+ * ==================================================
  *
  * Mục tiêu:
- * - Lọc các đơn hàng đã giao thành công.
- * - Tính tổng tiền của từng đơn hàng.
- * - Tính tổng doanh thu của hệ thống.
+ * 1. Lọc các đơn hàng đã giao thành công.
+ * 2. Tính tổng tiền của từng đơn hàng.
+ * 3. Cộng dồn tổng doanh thu.
  *
- * Sử dụng: filter() -> map() -> reduce()
+ * Phương thức sử dụng:
+ * filter() -> map() -> reduce()
  *
  * Yêu cầu:
  * - Không sử dụng vòng lặp for.
  * - Không làm thay đổi dữ liệu gốc.
- * - Xử lý an toàn khi dữ liệu đầu vào không hợp lệ.
+ * - Xử lý an toàn dữ liệu bất thường.
+ * - Trả về 0 nếu dữ liệu đầu vào không hợp lệ.
  */
 
-// ==============================================
+// ==================================================
 // PHẦN 1: KHAI BÁO DỮ LIỆU ĐƠN HÀNG
-// ==============================================
+// ==================================================
 
 const orders = [
   { id: 1, status: "Delivered", price: 100, tax: 10 },
@@ -43,76 +45,129 @@ const orders = [
   { id: 20, status: "Pending", price: 950, tax: 95 },
 ];
 
-// ==============================================
-// PHẦN 2: XÂY DỰNG HÀM TÍNH TỔNG DOANH THU
-// ==============================================
+// ==================================================
+// PHẦN 2: XÂY DỰNG HÀM TÍNH DOANH THU
+// ==================================================
 
-// Hàm tính tổng doanh thu của các đơn hàng đã giao thành công
 function calculateTotalRevenue(orderList) {
-  // Kiểm tra dữ liệu đầu vào có phải là một mảng hay không
+  // Kiểm tra dữ liệu đầu vào có phải là mảng hay không
   if (!Array.isArray(orderList)) {
     return 0;
   }
+
   return (
     orderList
 
-      // Bước 1: Lọc những đơn hàng đã giao hàng thành công
-      // Chỉ giữ lại đơn hàng đủ giá tiền và thuế hợp lệ
+      // Bước 1: Lọc đơn hàng đã giao thành công
+      // Chỉ nhận đơn hàng có giá và thuế là số hợp lệ
       .filter(
         (order) =>
           order !== null &&
           typeof order === "object" &&
+          order.status === "Delivered" &&
           Number.isFinite(order.price) &&
           Number.isFinite(order.tax),
       )
-      // Bước 2: Biến đổi mỗi đơn hàng thành tổng tiền
-      // Tổng tiền = Giá sản phẩm + thuế
+
+      // Bước 2: Tính tổng tiền của từng đơn hàng
+      // Tổng tiền = Giá sản phẩm + Thuế
       .map((order) => order.price + order.tax)
 
-      // Bước 3: Cộng dồn tổng tiền của các đơn hàng
-      // acc: Biến tích lũy, lưu tổng doanh thu hiện tại
-      // curr: Giá trị tiền của đơn hàng đang được xử lý
-      // 0: Giá trị khởi tạo ban đầu của biến tích lũy
-      .reduce((acc, curr) => {
-        return acc + curr;
-      }, 0)
+      // Bước 3: Cộng dồn doanh thu của các đơn hàng
+      // acc: Tổng doanh thu đã tích lũy
+      // curr: Tổng tiền của đơn hàng hiện tại
+      // 0: Giá trị khởi tạo của accumulator
+      .reduce((acc, curr) => acc + curr, 0)
   );
 }
 
-// ==============================================
-// PHẦN 3: KIỂM THỬ CHƯƠNG TRÌNH
-// ==============================================
+// ==================================================
+// PHẦN 3: HÀM TỐI ƯU SỬ DỤNG RIÊNG REDUCE()
+// ==================================================
+
+function calculateTotalRevenueOptimized(orderList) {
+  // Kiểm tra dữ liệu đầu vào
+  if (!Array.isArray(orderList)) {
+    return 0;
+  }
+
+  return orderList.reduce((acc, order) => {
+    // Bỏ qua đơn hàng không hợp lệ hoặc chưa giao thành công
+    if (
+      order === null ||
+      typeof order !== "object" ||
+      order.status !== "Delivered" ||
+      !Number.isFinite(order.price) ||
+      !Number.isFinite(order.tax)
+    ) {
+      return acc;
+    }
+
+    // Cộng tiền của đơn hàng hợp lệ vào tổng doanh thu
+    return acc + order.price + order.tax;
+  }, 0);
+}
+
+// ==================================================
+// PHẦN 4: XÂY DỰNG HÀM KIỂM THỬ
+// ==================================================
+
+function runTest(testName, actual, expected) {
+  // So sánh kết quả thực tế với kết quả mong đợi
+  const passed = Object.is(actual, expected);
+
+  console.log("\n--------------------------------------");
+  console.log("Tên kiểm thử:", testName);
+  console.log("Kết quả mong đợi:", expected);
+  console.log("Kết quả thực tế:", actual);
+  console.log("Trạng thái:", passed ? "PASSED" : "FAILED");
+
+  return passed;
+}
+
+// ==================================================
+// PHẦN 5: THỰC HIỆN CÁC TRƯỜNG HỢP KIỂM THỬ
+// ==================================================
 
 console.log("======================================");
 console.log("       BÁO CÁO DOANH THU DATAMART");
 console.log("======================================");
 
-// Kiểm thử 1: Dữ liệu đơn hàng bình thường
+// Kiểm thử 1: Mảng đơn hàng tiêu chuẩn
+
 console.log("\nKIỂM THỬ 1: DỮ LIỆU CHUẨN");
+
+console.log("Tổng số đơn hàng:", orders.length);
 
 const totalRevenue = calculateTotalRevenue(orders);
 
-console.log("Tổng số đơn hàng:", orders.length);
-console.log("Tổng doanh thu:", totalRevenue);
+runTest("Tính doanh thu với 20 đơn hàng", totalRevenue, 6380);
 
-// Kiểm thử 2: Mảng dữ liệu rỗng
+// Kiểm thử 2: Mảng rỗng
+
 console.log("\nKIỂM THỬ 2: MẢNG RỖNG");
 
 const emptyOrders = [];
 
-console.log("Tổng doanh thu:", calculateTotalRevenue(emptyOrders));
+runTest("Tính doanh thu với mảng rỗng", calculateTotalRevenue(emptyOrders), 0);
 
-// Kiểm thử 3: Không có đơn hàng nào được giao thành công
-console.log("\nKIỂM THỬ 3: KHÔNG CÓ ĐƠN HÀNG DELIVERED");
+// Kiểm thử 3: Không có đơn hàng Delivered
+
+console.log("\nKIỂM THỬ 3: KHÔNG CÓ ĐƠN DELIVERED");
 
 const noDeliveredOrders = [
   { id: 21, status: "Pending", price: 100, tax: 10 },
   { id: 22, status: "Cancelled", price: 200, tax: 20 },
 ];
 
-console.log("Tổng doanh thu:", calculateTotalRevenue(noDeliveredOrders));
+runTest(
+  "Không tính đơn Pending và Cancelled",
+  calculateTotalRevenue(noDeliveredOrders),
+  0,
+);
 
-// Kiểm thử 4: Dữ liệu đầu vào có giá trị bất thường
+// Kiểm thử 4: Dữ liệu bất thường
+
 console.log("\nKIỂM THỬ 4: DỮ LIỆU BẤT THƯỜNG");
 
 const abnormalOrders = [
@@ -125,38 +180,55 @@ const abnormalOrders = [
   { id: 28, status: "Delivered", price: 400, tax: 40 },
 ];
 
-console.log("Tổng doanh thu:", calculateTotalRevenue(abnormalOrders));
-
-// Kiểm thử 5: Dữ liệu đầu vào không phải mảng
-console.log("\nKIỂM THỬ 5: SAI KIỂU DỮ LIỆU");
-
-console.log("Tổng doanh thu:", calculateTotalRevenue(null));
-
-// ==============================================
-// PHẦN 4: KIỂM TRA TÍNH TOÀN VẸN DỮ LIỆU GỐC
-// ==============================================
-
-console.log("\nKIỂM THỬ 6: KIỂM TRA DỮ LIỆU GỐC");
-
-// Sao chép dữ liệu gốc dưới dạng chuỗi JSON
-const originalData = JSON.stringify(orders);
-
-// Thực hiện tính toán doanh thu
-calculateTotalRevenue(orders);
-
-// Chuyển dữ liệu hiện tại thành chuỗi JSON
-const currentData = JSON.stringify(orders);
-
-// So sánh dữ liệu trước và sau khi xử lý
-console.log(
-  "Dữ liệu gốc có bị thay đổi không?",
-  originalData !== currentData ? "CÓ" : "KHÔNG",
+runTest(
+  "Chỉ tính các đơn Delivered có dữ liệu hợp lệ",
+  calculateTotalRevenue(abnormalOrders),
+  550,
 );
 
-// ==============================================
-// PHẦN 5: KẾT THÚC CHƯƠNG TRÌNH
-// ==============================================
+// Kiểm thử 5: Đầu vào không phải mảng
+
+console.log("\nKIỂM THỬ 5: SAI KIỂU DỮ LIỆU");
+
+runTest("Kiểm tra đầu vào null", calculateTotalRevenue(null), 0);
+
+// Kiểm thử 6: Kiểm tra dữ liệu gốc có bị thay đổi không
+
+console.log("\nKIỂM THỬ 6: KIỂM TRA TÍNH BẤT BIẾN");
+
+const originalData = JSON.stringify(orders);
+
+calculateTotalRevenue(orders);
+
+const currentData = JSON.stringify(orders);
+
+const isUnchanged = originalData === currentData;
+
+runTest("Dữ liệu gốc không bị thay đổi", isUnchanged, true);
+
+// Kiểm thử 7: So sánh kết quả của hai phương pháp
+
+console.log("\nKIỂM THỬ 7: SO SÁNH HAI PHƯƠNG PHÁP");
+
+const chainingResult = calculateTotalRevenue(orders);
+
+const optimizedResult = calculateTotalRevenueOptimized(orders);
+
+runTest(
+  "Kết quả hai phương pháp phải giống nhau",
+  chainingResult,
+  optimizedResult,
+);
+
+// ==================================================
+// PHẦN 6: TỔNG KẾT KIỂM THỬ
+// ==================================================
 
 console.log("\n======================================");
 console.log("          KẾT THÚC BÁO CÁO");
+console.log("======================================");
+
+console.log("Tổng doanh thu:", totalRevenue);
+console.log("Số đơn hàng ban đầu:", orders.length);
+
 console.log("======================================");
