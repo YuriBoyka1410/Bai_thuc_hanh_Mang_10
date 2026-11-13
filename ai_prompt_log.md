@@ -1,111 +1,181 @@
 # DATAMART - AI PROMPT LOG
 
-## 1. Tìm hiểu phương thức filter()
+## 1. Thông tin dự án
 
-**Prompt:**
+- Tên dự án: DataMart - Chiến dịch xử lý dữ liệu lớn.
+- Ngôn ngữ: JavaScript.
+- Nội dung: Tái cấu trúc chương trình tính doanh thu đơn hàng.
+- Phương pháp: filter(), map(), reduce().
+- Mục tiêu: Clean Code, Immutable Data và xử lý dữ liệu an toàn.
 
-Hãy giải thích cơ chế hoạt động của phương thức
-filter() trong JavaScript.
+---
 
-Sử dụng ví dụ mảng đơn hàng có nhiều trạng thái:
-Delivered, Pending và Cancelled.
+## 2. Nhật ký tương tác với AI
 
-Giải thích callback function hoạt động như thế nào,
-tham số order nhận giá trị gì và điều kiện true/false
-ảnh hưởng đến kết quả lọc ra sao.
+### Prompt 1: Tìm hiểu yêu cầu bài tập
 
-## 2. Tìm hiểu phương thức map()
+**Yêu cầu thực tế:**
 
-**Prompt:**
+Nhờ AI hướng dẫn thực hiện bài tập DataMart, phân tích code Legacy và giải thích cách chuyển đổi từ vòng lặp for sang Array Methods.
 
-Hãy giải thích sự khác nhau giữa map() và forEach()
-trong JavaScript.
+**Mục đích:**
 
-Tại sao khi cần biến đổi danh sách đơn hàng thành
-danh sách tổng tiền của từng đơn hàng thì nên sử dụng
-map() thay vì forEach()?
+- Hiểu yêu cầu bài toán.
+- Xác định nhiệm vụ của filter(), map(), reduce().
+- Thiết kế luồng xử lý dữ liệu.
 
-Hãy minh họa bằng ví dụ cụ thể.
+**Kết quả học được:**
 
-## 3. Tìm hiểu phương thức reduce()
+Luồng xử lý phù hợp là:
 
-**Prompt:**
+orders -> filter() -> map() -> reduce() -> totalRevenue.
 
-Hãy giải thích chi tiết cơ chế hoạt động của reduce()
-trong JavaScript.
+---
 
-Tập trung giải thích:
+### Prompt 2: Tìm hiểu các phương thức Array Methods
 
-- Accumulator (acc) là gì?
-- CurrentValue (curr) là gì?
-- Giá trị khởi tạo 0 có ý nghĩa gì?
-- Điều gì xảy ra nếu bỏ giá trị khởi tạo?
-- Điều gì xảy ra khi mảng đầu vào rỗng?
+**Yêu cầu thực tế:**
 
-Hãy minh họa quá trình cộng dồn bằng bảng.
+Nhờ AI giải thích cơ chế hoạt động của filter(), map(), reduce() và cách sử dụng trong bài toán tính doanh thu.
 
-## 4. Tìm hiểu Method Chaining
+**Mục đích:**
 
-**Prompt:**
+- Hiểu callback function.
+- Phân biệt nhiệm vụ của từng phương thức.
+- Hiểu dữ liệu đầu ra của phương thức trước.
 
-Hãy giải thích cách kết hợp filter(), map() và reduce()
-thành một chuỗi Method Chaining trong JavaScript.
+**Kết quả học được:**
 
-Sử dụng bài toán tính tổng doanh thu đơn hàng
-của hệ thống DataMart làm ví dụ.
+- filter(): Lọc các phần tử thỏa mãn điều kiện.
+- map(): Biến đổi từng phần tử và tạo mảng mới.
+- reduce(): Tích lũy dữ liệu thành một kết quả.
 
-Giải thích dữ liệu đầu ra của từng phương thức
-trở thành dữ liệu đầu vào của phương thức tiếp theo.
+---
 
-## 5. Tìm hiểu tính bất biến của dữ liệu
+### Prompt 3: Hỗ trợ hoàn thiện mã nguồn
 
-**Prompt:**
+**Yêu cầu thực tế:**
 
-Hãy giải thích khái niệm Immutable Data và Side Effect
-trong JavaScript.
+Nhờ AI cung cấp code tham khảo đầy đủ cho bài DataMart, có giải thích và chú thích từng bước bằng tiếng Việt.
 
-Khi sử dụng filter(), map() và reduce(), tại sao
-các phương thức này không làm thay đổi mảng ban đầu?
+**Mục đích:**
 
-Hãy hướng dẫn cách kiểm tra dữ liệu gốc trước và sau
-khi thực hiện xử lý.
+- Tham khảo cách tổ chức chương trình.
+- Hiểu cấu trúc Method Chaining.
+- Tìm hiểu cách xử lý dữ liệu đầu vào bất thường.
 
-## 6. Xây dựng bộ kiểm thử dữ liệu
+**Kết quả học được:**
 
-**Prompt:**
+Biết cách kết hợp ba phương thức filter(), map() và reduce() trong một hàm tính doanh thu.
 
-Hãy đề xuất các trường hợp kiểm thử cho hàm
-calculateTotalRevenue() trong dự án DataMart.
+---
 
-Yêu cầu có các trường hợp:
+### Prompt 4: Kiểm tra dữ liệu bất thường
 
-- Mảng chứa dữ liệu đơn hàng bình thường.
-- Mảng rỗng.
-- Không có đơn hàng Delivered.
-- Đơn hàng có price bằng null.
-- Đơn hàng thiếu tax.
-- Price là chuỗi ký tự.
-- Có phần tử null trong mảng.
-- Đầu vào không phải mảng.
-- Kiểm tra dữ liệu gốc có bị thay đổi không.
+**Yêu cầu thực tế:**
 
-Không viết toàn bộ lời giải, chỉ phân tích
-logic kiểm thử và kết quả mong đợi.
+Nhờ AI xây dựng các trường hợp kiểm thử gồm mảng rỗng, dữ liệu null, undefined, chuỗi ký tự và đầu vào không phải mảng.
 
-## 7. Nhờ AI đóng vai Tech Lead
+**Mục đích:**
 
-**Prompt:**
+- Kiểm tra độ an toàn của chương trình.
+- Tránh kết quả NaN.
+- Đảm bảo dữ liệu không hợp lệ không được tính vào doanh thu.
 
-Hãy đóng vai Tech Lead và review bài tập
-DataMart sử dụng filter(), map() và reduce().
+**Kết quả học được:**
 
-Đặt các câu hỏi vấn đáp về:
+Sử dụng Array.isArray() và Number.isFinite() để kiểm tra dữ liệu.
 
-- Sự khác nhau giữa map() và forEach().
-- Vai trò của accumulator trong reduce().
-- Ý nghĩa của giá trị khởi tạo 0.
-- Tính bất biến của dữ liệu.
-- Hiệu suất khi xử lý một triệu phần tử.
+---
 
-Sau đó đưa ra nhận xét về những điểm cần cải thiện
-trong mã nguồn.
+### Prompt 5: Review và sửa lỗi chương trình
+
+**Yêu cầu thực tế:**
+
+Sau khi nhận được nhận xét của người chấm, nhờ AI phân tích nguyên nhân sai lệch doanh thu 11715 thay vì 6380 và hướng dẫn khắc phục.
+
+**Mục đích:**
+
+- Tìm nguyên nhân khiến chương trình tính cả đơn Pending và Cancelled.
+- Sửa điều kiện lọc đơn hàng.
+- Kiểm tra lại các trường hợp kiểm thử.
+
+**Kết quả học được:**
+
+Bổ sung điều kiện:
+
+order.status === "Delivered"
+
+vào filter() để chỉ giữ lại đơn hàng đã giao thành công.
+
+---
+
+### Prompt 6: Tìm hiểu hiệu suất xử lý dữ liệu lớn
+
+**Yêu cầu thực tế:**
+
+Nhờ AI giải thích nhược điểm về hiệu suất của Method Chaining khi xử lý một triệu phần tử và so sánh với phương pháp chỉ sử dụng reduce().
+
+**Mục đích:**
+
+- Hiểu chi phí tạo mảng trung gian.
+- So sánh khả năng sử dụng bộ nhớ.
+- Tìm hiểu phương pháp tối ưu.
+
+**Kết quả học được:**
+
+Sử dụng một lần reduce() có thể tránh tạo các mảng trung gian và chỉ duyệt dữ liệu một lần.
+
+---
+
+## 3. Nhật ký tự đánh giá
+
+### Những kiến thức đã nắm được
+
+1. Hiểu cách sử dụng filter() để lọc đơn hàng Delivered.
+2. Hiểu cách sử dụng map() để tính tổng tiền từng đơn hàng.
+3. Hiểu cách sử dụng reduce() để cộng dồn doanh thu.
+4. Hiểu accumulator (acc) là biến lưu kết quả tích lũy.
+5. Hiểu ý nghĩa của giá trị khởi tạo 0.
+6. Hiểu nguyên tắc không thay đổi dữ liệu gốc.
+
+### Những lỗi đã gặp
+
+Ban đầu, chương trình thiếu điều kiện:
+
+order.status === "Delivered"
+
+Do đó chương trình tính cả những đơn hàng Pending và Cancelled.
+
+Kết quả ban đầu là 11715 thay vì 6380.
+
+### Cách khắc phục
+
+Bổ sung điều kiện lọc trạng thái Delivered trong filter().
+
+Sau đó chạy lại các trường hợp kiểm thử và đối chiếu kết quả thực tế với kết quả mong đợi.
+
+### Kinh nghiệm rút ra
+
+- Không được chỉ dựa vào comment để đánh giá logic chương trình.
+- Phải kiểm tra điều kiện trong code thực tế.
+- Phải chạy thử chương trình trước khi ghi kết quả vào báo cáo.
+- Cần hiểu rõ accumulator trong reduce().
+- Cần cân nhắc hiệu suất và bộ nhớ khi xử lý dữ liệu lớn.
+
+---
+
+## 4. Kết luận
+
+Thông qua bài thực hành DataMart, em đã tìm hiểu và vận dụng
+các phương thức xử lý mảng hiện đại trong JavaScript.
+
+Bài tập giúp em hiểu rõ hơn về Method Chaining,
+Immutable Data, Callback Function và cách kiểm thử
+chương trình với nhiều trường hợp dữ liệu khác nhau.
+
+Em cũng nhận ra rằng code chạy không báo lỗi
+chưa chắc đã cho kết quả đúng.
+
+Việc kiểm thử và đối chiếu kết quả thực tế
+là bước quan trọng trong quá trình phát triển phần mềm.
