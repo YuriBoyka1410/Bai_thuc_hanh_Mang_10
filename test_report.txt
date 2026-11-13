@@ -1,0 +1,116 @@
+
+========================================
+       DATAMART - TEST REPORT
+========================================
+
+MỤC TIÊU KIỂM THỬ:
+- Kiểm tra tính chính xác của doanh thu.
+- Kiểm tra khả năng xử lý dữ liệu rỗng.
+- Kiểm tra dữ liệu bất thường.
+- Kiểm tra tính toàn vẹn của dữ liệu gốc.
+
+----------------------------------------
+KIỂM THỬ 1: DỮ LIỆU ĐƠN HÀNG CHUẨN
+----------------------------------------
+
+Dữ liệu đầu vào:
+- Tổng số đơn hàng: 20.
+- Trạng thái bao gồm: Delivered, Pending, Cancelled.
+
+Kết quả mong đợi:
+- Chỉ tính các đơn hàng Delivered hợp lệ.
+- Tổng số đơn hàng Delivered: 10.
+- Tổng doanh thu: 6380.
+
+Kết quả thực tế:
+- Tổng số đơn hàng: 20.
+- Tổng doanh thu: 6380.
+
+Trạng thái: PASSED
+
+----------------------------------------
+KIỂM THỬ 2: MẢNG RỖNG
+----------------------------------------
+
+Dữ liệu đầu vào:
+[]
+
+Kết quả mong đợi: 0
+Kết quả thực tế: 0
+
+Trạng thái: PASSED
+
+----------------------------------------
+KIỂM THỬ 3: KHÔNG CÓ ĐƠN HÀNG DELIVERED
+----------------------------------------
+
+Dữ liệu đầu vào:
+- Đơn hàng Pending.
+- Đơn hàng Cancelled.
+
+Kết quả mong đợi: 0
+Kết quả thực tế: 0
+
+Trạng thái: PASSED
+
+----------------------------------------
+KIỂM THỬ 4: DỮ LIỆU BẤT THƯỜNG
+----------------------------------------
+
+Dữ liệu đầu vào:
+- Price = null.
+- Tax = undefined.
+- Price là chuỗi ký tự.
+- Có phần tử null trong mảng.
+- Có đơn hàng hợp lệ.
+
+Kết quả mong đợi:
+- Bỏ qua các đơn hàng có dữ liệu không hợp lệ.
+- Chỉ tính các đơn hàng Delivered hợp lệ.
+
+Kết quả thực tế:
+- Đơn hàng hợp lệ thứ nhất: 100 + 10 = 110.
+- Đơn hàng hợp lệ thứ hai: 400 + 40 = 440.
+- Tổng doanh thu: 550.
+
+Trạng thái: PASSED
+
+----------------------------------------
+KIỂM THỬ 5: SAI KIỂU DỮ LIỆU ĐẦU VÀO
+----------------------------------------
+
+Dữ liệu đầu vào:
+null
+
+Kết quả mong đợi: 0
+Kết quả thực tế: 0
+
+Trạng thái: PASSED
+
+----------------------------------------
+KIỂM THỬ 6: KIỂM TRA TÍNH TOÀN VẸN
+----------------------------------------
+
+Phương pháp:
+- Lưu lại dữ liệu gốc trước khi xử lý.
+- Gọi hàm calculateTotalRevenue().
+- So sánh dữ liệu trước và sau khi xử lý.
+
+Kết quả mong đợi:
+Dữ liệu gốc không bị thay đổi.
+
+Kết quả thực tế:
+Dữ liệu gốc không bị thay đổi.
+
+Trạng thái: PASSED
+
+========================================
+TỔNG KẾT
+========================================
+
+Tổng số kịch bản kiểm thử: 6
+Số kịch bản thành công: 6
+Số kịch bản thất bại: 0
+
+KẾT QUẢ CUỐI CÙNG: ALL TESTS PASSED
+========================================
